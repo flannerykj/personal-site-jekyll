@@ -1,0 +1,57 @@
+---
+layout: default
+title: Posts
+---
+
+
+<h1 class='title is-1'>{{ page.title }}</h1>
+
+{% for post in paginator.posts %}
+  <div class='card' style='margin-bottom: 20px'>
+    <div class='card-content'>
+      <div class='media'>
+        <div class='media-content'>
+            <div>
+              {% for cat in post.categories %}
+                <span>{{ cat }}, </span>
+              {% endfor %}
+            </div>
+          <a href="{{ post.url }}">
+            <h3 class='title is-4'>{{ post.title }}</h3>
+          </a>
+          <h4 class='subittle is-6'>{{ post.date | date: "%B %e, %Y" }}</h4>
+            {% if post.tags contains 'untagged' %}
+            {% else if post.tags %}
+          <div style='margin-top: 15px'>
+            <i class='fa fa-tags fa-2x'></i>
+             {% for tag in post.tags %}
+                <a href='#' class='button'>{{ tag }}</a>
+              {% endfor %}
+          </div>
+            {% endif %}
+        </div>
+      </div>
+      <div class='content'>
+        <p>{{post.description}}</p>
+         <a class='button' href="{{ post.url }}">
+           Read More
+          </a>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+
+<section class="section pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">&#8592; Previous</a>
+  {% else %}
+    <span class="previous"></span>
+  {% endif %}
+  <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">Next &#8594;</a>
+  {% else %}
+    <span class="next "></span>
+  {% endif %}
+</section>
