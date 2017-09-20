@@ -1,0 +1,29 @@
+<div class='card' style='margin-bottom: 20px'>
+    <div class='card-content'>
+      <div class='media'>
+        <div class='media-content'>
+            <div>
+              {% for cat in post.categories %}
+                <span class='subtitle is-5'>{{ cat }} </span>
+              {% endfor %}
+            </div>
+          <a href="{{ post.url }}">
+            <h3 class='title is-4'>{{ post.title }}</h3>
+          </a>
+          <span>{{ post.date | date: "%B %e, %Y" }}</span>
+            {% if post.tags contains 'untagged' %}
+            {% else if post.tags %} | <i style="vertical-align: middle" class='fa fa-tags'></i>
+              {% assign tags = post.tags %}
+              {% include tags.html %}
+            {% endif %}
+        </div>
+      </div>
+      <div class='content'>
+        <p>{{post.description}}</p>
+         <a class='button' href="{{ post.url }}">
+           Read More
+          </a>
+      </div>
+    </div>
+  </div>
+

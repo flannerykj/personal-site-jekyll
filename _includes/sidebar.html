@@ -1,0 +1,9 @@
+<div class='card'>
+  <div class='card-content'>
+    <h3 class='title h3'>Tags</h3>
+    {% for tag in site.tags %}
+      <a class='button' href="/blog/tags#{{ tag[0] | slugify }}" class="post-tag">{{ tag[0] }}</a>
+
+    {% endfor %}
+  </div>
+</div>

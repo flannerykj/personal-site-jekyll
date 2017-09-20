@@ -25,10 +25,21 @@ github_username: flannerykj
 markdown: kramdown
 theme: minima
 paginate: 5
-paginate_path: "page:num"
+paginate_path: "/blog/page:num/"
+permalink: "/blog/:year/:month/:day/:title/"
 sass:
   style: compressed
+nav:
+  Blog:
+    - '/blog/'
+    - { Categories: '/blog/categories/' }
+    - { Tags: '/blog/tags/' }
+  About:
+  - '/about/'
 plugins: [jekyll-feed, jekyll-paginate]
+
+tag_page: '/blog/tags/'
+category_page: '/blog/categories/'
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

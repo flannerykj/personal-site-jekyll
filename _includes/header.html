@@ -1,15 +1,49 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class='container'>
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
+      <a class="navbar-item" href="/blog">
         FlanneryKJ
       </a>
     </div>
     <div class="navbar-menu is-active">
-      <div class='navbar-end'>
-        <a class="navbar-item" href='/about'>
-         About
+      <div class='navbar-start'>
+        {% for nav in site.nav %}
+          {% assign is_relative = nav[1][0] | slice: 0 %}
+          {% assign url = nav[1][0] %}
+          {% if is_relative == '/' %}
+            {% assign url = nav[1][0] | prepend: site.baseurl %}
+          {% endif %}
+
+          {% assign sub_len = nav[1] | size | minus: 1 %}
+
+          {% if sub_len > 0 %}
+          <div class='navbar-item has-dropdown is-hoverable'>
+            <a class="navbar-link {% if page.url == nav[1][0] %}is-active{% endif %}" href="{{ url }}">
+              {{ nav[0] }}
+            </a>
+            <div class="navbar-dropdown">
+            {% for i in (1..sub_len) %}
+              {% for sub_nav in nav[1][i] %}
+                {% assign sub_is_relative = sub_nav[1] | slice: 0 %}
+                {% assign sub_url = sub_nav[1] %}
+                {% if sub_is_relative == '/' %}
+                  {% assign sub_url = sub_nav[1] | prepend: site.baseurl %}
+                {% endif %}
+                  <a class="navbar-item  sidebar-nav-item-sub {% if page.url == sub_nav[1] %}is-active{% endif %}" href="{{ sub_url }}">
+                    {{ sub_nav[0] }}
+                  </a>
+              {% endfor %}
+            {% endfor %}
+            </div>
+          </div>
+
+        {% else %}
+         <a class="navbar-item {% if page.url == nav[1][0] %}is-active{% endif %}" href="{{ url }}">
+          {{ nav[0] }}
         </a>
+        {% endif %}
+
+        {% endfor %}
       </div>
     </div>
   </div>
